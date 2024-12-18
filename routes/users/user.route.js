@@ -1,5 +1,4 @@
 import * as userController from "../../controllers/user.controller.js";
-import * as auth from "../../middlewares/auth.js";
 import User from "../../models/user.model.js";
 
 export default async function (fastify, opts) {
@@ -28,7 +27,7 @@ export default async function (fastify, opts) {
               email, firstName: user.firstName, lastName: user.lastName, role: user.role
             }
           })
-          reply.status(200).send({ token: token })
+          return reply.status(200).send({ token: token })
         } catch (error) {
           console.log(error)
           return reply.status(500).send({ error: "An error occurred during authorization." })

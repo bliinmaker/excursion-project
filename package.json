@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap \"test/**/*.test.js\"",
+    "test": "NODE_OPTIONS='--no-deprecation' tap test/**/*.test.mjs",
+    "test:watch": "tap test/**/*.test.mjs --watch",
     "start": "fastify start -l info app.js",
     "dev": "fastify start --watch --ignore-watch='uploads' -l info --verbose-watch -P app.js"
   },
@@ -17,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@adminjs/fastify": "^4.0.1",
-    "@adminjs/mongoose": "^4.0.0",
+    "@adminjs/mongoose": "^4.1.0",
     "@fastify/auth": "^4.3.0",
     "@fastify/autoload": "^5.0.0",
     "@fastify/cors": "^8.3.0",
@@ -30,26 +31,36 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.0.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
     "fastify-autoload": "^3.13.0",
     "fastify-cli": "^5.7.1",
     "fastify-jwt": "^4.2.0",
     "fastify-plugin": "^4.5.1",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.8.2",
+    "mongoose": "^8.9.0",
     "nodemon": "^3.1.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "@istanbuljs/esm-loader-hook": "0.2.0",
-    "tap": "^16.1.0"
+    "tap": "^16.1.0",
+    "ts-jest": "^29.2.5"
   },
   "tap": {
     "node-arg": [
       "--no-warnings",
       "--experimental-loader",
       "@istanbuljs/esm-loader-hook"
+    ],
+    "nyc-arg": [
+      "--exclude=**/services/upload.service.js",
+      "--exclude=**/controllers/upload.controller.js",
+      "--exclude=**/plugins/jwtPlugin.js",
+      "--exclude=**/app.js"
     ]
   }
 }

@@ -27,7 +27,7 @@ export const createComment = async ({
 }
 
 export const findByIdAndDelete = async (id) => {
-	const comment = await Comment.findByIdAndDelete(req.params.id)
+	const comment = await Comment.findByIdAndDelete(id)
 
 	return comment
 }
